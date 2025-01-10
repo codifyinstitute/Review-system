@@ -4,15 +4,15 @@ function Login() {
   const baseUrl = "http://localhost:5000";
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    UserName: "",
+    Password: "",
   });
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${baseUrl}/login`, {
+      const response = await fetch(`${baseUrl}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,10 +59,10 @@ function Login() {
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Email</label>
           <input
-            type="email"
-            value={formData.email}
+            type="text"
+            value={formData.UserName}
             onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
+              setFormData({ ...formData, UserName: e.target.value })
             }
             className="w-full p-2 border rounded"
             required
@@ -72,9 +72,9 @@ function Login() {
           <label className="block text-gray-700 mb-2">Password</label>
           <input
             type="password"
-            value={formData.password}
+            value={formData.Password}
             onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
+              setFormData({ ...formData, Password: e.target.value })
             }
             className="w-full p-2 border rounded"
             required
