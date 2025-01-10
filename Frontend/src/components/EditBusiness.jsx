@@ -17,15 +17,15 @@ function EditBusiness() {
   });
 
   // Fetch all businesses from the API
+  const fetchBusinesses = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/businesses/all");
+      setBusinesses(response.data);
+    } catch (error) {
+      console.error("Error fetching businesses:", error);
+    }
+  };
   useEffect(() => {
-    const fetchBusinesses = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/businesses/all");
-        setBusinesses(response.data);
-      } catch (error) {
-        console.error("Error fetching businesses:", error);
-      }
-    };
 
     fetchBusinesses();
   }, []); // Empty dependency array ensures the effect runs only once
@@ -38,11 +38,9 @@ function EditBusiness() {
 
   const handleDelete = async (businessId) => {
     try {
-      await axios.delete(`/api/business/${businessId}`); // Add backend delete API endpoint
-      setBusinesses(businesses.filter((b) => b._id !== businessId)); // Remove from UI
-      if (selectedBusiness?._id === businessId) {
-        setSelectedBusiness(null);
-      }
+      await axios.delete(`http://localhost:5000/businesses/del/${businessId}`); // Add backend delete API endpoint
+      fetchBusinesses();
+
     } catch (error) {
       console.error("Error deleting business:", error);
     }
@@ -108,7 +106,7 @@ function EditBusiness() {
               <h3 className="text-xl font-semibold mb-2">{business.Name}</h3>
               <div className="flex space-x-2">
                 <button
-                  onClick={(e) => navigate("/dash/add-review")}
+                  onClick={(e) => navigate("/dash/add-review", { state: { Id: business.BusinessId } })}
                   className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
                 >
                   Edit
@@ -116,7 +114,7 @@ function EditBusiness() {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleDelete(business._id); // Use _id for deleting business
+                    handleDelete(business.BusinessId); // Use _id for deleting business
                   }}
                   className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
                 >
