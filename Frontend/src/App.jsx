@@ -6,6 +6,7 @@ import EditBusiness from './components/EditBusiness';
 import Login from './components/Login';
 import RandomReview from './components/Review';
 import Layout from './components/Layout';
+import AddReview from './components/AddReview';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/dash" element={<Layout />}>
             <Route path="add" element={<AddBusiness />} />
             <Route path="edit" element={<EditBusiness />} />
+            <Route path="add-review" element={<AddReview />} />
           </Route>
         <Route path="/review/:businessId" element={<RandomReview />} />
         <Route path="/" element={<Login />} />
