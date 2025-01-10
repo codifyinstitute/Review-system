@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 function Login() {
+  const baseUrl = "http://localhost:5000";
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
