@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import * as XLSX from 'xlsx';
-import {ArrowLeft} from 'lucide-react'
+import { useState } from "react";
+import * as XLSX from "xlsx";
+import { ArrowLeft } from "lucide-react";
 
 function EditBusiness() {
   const [businesses, setBusinesses] = useState([
@@ -120,10 +120,10 @@ function EditBusiness() {
       ) : (
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Reviews</h2>
+            <h2 className=" mt-12 text-2xl font-bold">Reviews</h2>
             <ArrowLeft
               onClick={() => setSelectedBusiness(null)}
-              className="text-black hover:text-gray-800 cursor-pointer"
+              className="text-black mt-14  hover:text-gray-800 cursor-pointer"
               size={24} // Adjust size as needed
             />
           </div>
@@ -196,49 +196,6 @@ function EditBusiness() {
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-lg font-semibold mb-4">Add Single Review</h3>
               <form onSubmit={handleReviewSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-gray-700 mb-2">Name</label>
-                  <input
-                    type="text"
-                    value={reviewForm.name}
-                    onChange={(e) =>
-                      setReviewForm({ ...reviewForm, name: e.target.value })
-                    }
-                    className="w-full p-2 border rounded"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Email</label>
-                  <input
-                    type="email"
-                    value={reviewForm.email}
-                    onChange={(e) =>
-                      setReviewForm({ ...reviewForm, email: e.target.value })
-                    }
-                    className="w-full p-2 border rounded"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">
-                    Stars (1-5)
-                  </label>
-                  <input
-                    type="number"
-                    min="1"
-                    max="5"
-                    value={reviewForm.stars}
-                    onChange={(e) =>
-                      setReviewForm({
-                        ...reviewForm,
-                        stars: parseInt(e.target.value),
-                      })
-                    }
-                    className="w-full p-2 border rounded"
-                    required
-                  />
-                </div>
                 <div>
                   <label className="block text-gray-700 mb-2">
                     Description
