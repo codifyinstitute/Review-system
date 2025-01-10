@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const baseUrl = "http://localhost:5000";
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [formData, setFormData] = useState({
@@ -23,7 +25,7 @@ function Login() {
       if (response.ok) {
         const data = await response.json();
         // Handle successful login here (e.g., save token, update state)
-        setIsLoggedIn(true);
+        navigate("/dash/add")
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Login failed");
@@ -33,23 +35,7 @@ function Login() {
     }
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
 
-  if (isLoggedIn) {
-    return (
-      <div className="p-8">
-        <h2 className=" mt-8 text-2xl font-bold mb-6">Welcome!</h2>
-        <button
-          onClick={handleLogout}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-        >
-          Logout
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className="p-8">
