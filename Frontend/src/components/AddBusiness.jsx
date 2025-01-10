@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 
 function AddBusiness() {
+  const baseUrl = "";
   const [formData, setFormData] = useState({
     businessName: "",
     businessLink: "",

@@ -1,7 +1,6 @@
-import { useState } from "react";
-import * as XLSX from "xlsx";
-import { ArrowLeft } from "lucide-react";
-
+import { useState } from 'react';
+import * as XLSX from 'xlsx';
+import {ArrowLeft} from 'lucide-react'
 
 function EditBusiness() {
   const [businesses, setBusinesses] = useState([
@@ -105,6 +104,14 @@ function EditBusiness() {
                   >
                     Delete
                   </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    className="bg-green-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                  >
+                    Copy Url
+                  </button>
                 </div>
               </div>
             ))}
@@ -113,13 +120,12 @@ function EditBusiness() {
       ) : (
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h2 className=" mt-8  text-2xl font-bold">Reviews</h2>
-            <button
+            <h2 className="text-2xl font-bold">Reviews</h2>
+            <ArrowLeft
               onClick={() => setSelectedBusiness(null)}
-              className="text-gray-600 hover:text-gray-800"
-            >
-              ← Back to businesses
-            </button>
+              className="text-black hover:text-gray-800 cursor-pointer"
+              size={24} // Adjust size as needed
+            />
           </div>
 
           {editMode ? (
