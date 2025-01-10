@@ -17,11 +17,9 @@ const businessModel = new mongoose.Schema({
     Review:[{
         Description:{
             type:String,
-            required:true
         },
         Status:{
             type:String,
-            required:true
         }
     }]
 });

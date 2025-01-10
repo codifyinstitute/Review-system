@@ -1,11 +1,20 @@
 const Business = require("../models/businessModel");
+const Counter = require("../models/counterModel");
 
 // Controller functions
 const businessController = {
     // Add a new business
     addBusiness: async (req, res) => {
-        const { BusinessId, Name, Link } = req.body;
+        const { Name, Link } = req.body;
         try {
+            let counter = await Counter.findOne({ Title: `BUS` });
+            if (!counter) {
+                counter = new Counter({ Title: `BUS`, Count: 1 });
+            } else {
+                counter.Count += 1;
+            }
+
+            const id =  `BUS-${counter}`
             const newBusiness = new Business({ BusinessId, Name, Link });
             await newBusiness.save();
             res.status(201).json({ message: "Business added successfully", business: newBusiness });
