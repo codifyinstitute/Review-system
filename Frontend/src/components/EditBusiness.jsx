@@ -11,9 +11,6 @@ function EditBusiness() {
   const [editMode, setEditMode] = useState(false);
   const [editForm, setEditForm] = useState({ name: '', link: '' });
   const [reviewForm, setReviewForm] = useState({
-    name: '',
-    email: '',
-    stars: 5,
     description: ''
   });
 
@@ -43,7 +40,7 @@ function EditBusiness() {
   const handleReviewSubmit = (e) => {
     e.preventDefault();
     console.log('Review submitted:', reviewForm);
-    setReviewForm({ name: '', email: '', stars: 5, description: '' });
+    setReviewForm({description: '' });
   };
 
   const handleBulkReview = async (event) => {
@@ -172,38 +169,6 @@ function EditBusiness() {
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-lg font-semibold mb-4">Add Single Review</h3>
               <form onSubmit={handleReviewSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-gray-700 mb-2">Name</label>
-                  <input
-                    type="text"
-                    value={reviewForm.name}
-                    onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
-                    className="w-full p-2 border rounded"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Email</label>
-                  <input
-                    type="email"
-                    value={reviewForm.email}
-                    onChange={(e) => setReviewForm({ ...reviewForm, email: e.target.value })}
-                    className="w-full p-2 border rounded"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Stars (1-5)</label>
-                  <input
-                    type="number"
-                    min="1"
-                    max="5"
-                    value={reviewForm.stars}
-                    onChange={(e) => setReviewForm({ ...reviewForm, stars: parseInt(e.target.value) })}
-                    className="w-full p-2 border rounded"
-                    required
-                  />
-                </div>
                 <div>
                   <label className="block text-gray-700 mb-2">Description</label>
                   <textarea
