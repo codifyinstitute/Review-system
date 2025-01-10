@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/react.svg";
+// import { Link, useLocation } from "react-router-dom";
 
 function Sidebar({ isOpen, setIsOpen }) {
   const location = useLocation();

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 function AddBusiness() {
+  const baseUrl = "";
   const [formData, setFormData] = useState({
     businessName: "",
     businessLink: "",
