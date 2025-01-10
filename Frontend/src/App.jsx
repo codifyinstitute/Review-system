@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import AddBusiness from './components/AddBusiness';
 import EditBusiness from './components/EditBusiness';
 import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -32,6 +33,7 @@ function App() {
               <Route path="/add" element={<AddBusiness />} />
               <Route path="/edit" element={<EditBusiness />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/Register" element={<Register />} />
               <Route path="/" element={<AddBusiness />} />
             </Routes>
           </div>

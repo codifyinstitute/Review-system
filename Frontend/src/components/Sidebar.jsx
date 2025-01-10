@@ -1,3 +1,5 @@
+import { Link, useLocation } from 'react-router-dom';
+import logo from '../assets/react.svg'
 import { Link, useLocation } from "react-router-dom";
 
 function Sidebar({ isOpen, setIsOpen }) {
@@ -30,7 +32,7 @@ function Sidebar({ isOpen, setIsOpen }) {
       `}
       >
         <div className="p-4">
-          <h1 className="text-2xl font-bold mb-8">Review Manager</h1>
+          <div className='flex justify-between mb-8 items-center'><img src={logo} alt="LOGO" className='w-12 aspect-square rounded-full'/><h1 className="text-xl font-bold">Review Manager</h1></div>
           <nav className="space-y-2">
             <Link
               to="/add"
@@ -63,7 +65,18 @@ function Sidebar({ isOpen, setIsOpen }) {
                   : "hover:bg-gray-700"
               }`}
             >
-              Login/Logout
+              Register
+            </Link>
+            <Link
+              to="/Register"
+              onClick={closeSidebar}
+              className={`block p-3 rounded ${
+                location.pathname === '/Register'
+                  ? 'bg-blue-600'
+                  : 'hover:bg-gray-700'
+              }`}
+            >
+              Register
             </Link>
           </nav>
         </div>
