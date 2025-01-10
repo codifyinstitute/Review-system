@@ -14,9 +14,10 @@ const businessController = {
                 counter.Count += 1;
             }
 
-            const id =  `BUS-${counter}`
-            const newBusiness = new Business({ BusinessId, Name, Link });
+            const id = `BUS-${counter.Count}`
+            const newBusiness = new Business({ BusinessId: id, Name, Link });
             await newBusiness.save();
+            await counter.save()
             res.status(201).json({ message: "Business added successfully", business: newBusiness });
         } catch (error) {
             res.status(500).json({ message: "Error adding business", error });
@@ -83,13 +84,13 @@ const businessController = {
     // Add a review to a business
     addReview: async (req, res) => {
         const { BusinessId } = req.params;
-        const { Description, Status } = req.body;
+        const { Description } = req.body;
         try {
             const business = await Business.findOne({ BusinessId });
             if (!business) {
                 return res.status(404).json({ message: "Business not found" });
             }
-            business.Review.push({ Description, Status });
+            business.Review.push({ Description, Status: "Incomplete" });
             await business.save();
             res.status(200).json({ message: "Review added successfully", business });
         } catch (error) {
