@@ -72,18 +72,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                   : "hover:bg-gray-700"
               }`}
             >
-              Register
-            </Link>
-            <Link
-              to="/Register"
-              onClick={closeSidebar}
-              className={`block p-3 rounded ${
-                location.pathname === "/Register"
-                  ? "bg-blue-600"
-                  : "hover:bg-gray-700"
-              }`}
-            >
-              Register
+              Login
             </Link>
           </nav>
         </div>
