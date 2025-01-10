@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
   const handleSubmit = (e) => {
@@ -20,7 +20,7 @@ function Login() {
   if (isLoggedIn) {
     return (
       <div className="p-8">
-        <h2 className="text-2xl font-bold mb-6">Welcome!</h2>
+        <h2 className=" mt-8 text-2xl font-bold mb-6">Welcome!</h2>
         <button
           onClick={handleLogout}
           className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
@@ -33,14 +33,16 @@ function Login() {
 
   return (
     <div className="p-8">
-      <h2 className="text-2xl font-bold mb-6">Login</h2>
+      <h2 className=" mt-8 text-2xl font-bold mb-6">Login</h2>
       <form onSubmit={handleSubmit} className="max-w-md">
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Email</label>
           <input
             type="email"
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
             className="w-full p-2 border rounded"
             required
           />
@@ -50,7 +52,9 @@ function Login() {
           <input
             type="password"
             value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
             className="w-full p-2 border rounded"
             required
           />
