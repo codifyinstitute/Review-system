@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const AddReview = () => {
   const [editMode, setEditMode] = useState(false);
@@ -12,14 +11,11 @@ const AddReview = () => {
     stars: 5,
     description: "",
   });
-
-  const navigate = useNavigate(); // Initialize the useNavigate hook
-
-  const handleReviewSubmit = (e) => {
-    e.preventDefault();
-    console.log("Review submitted:", reviewForm);
-    setReviewForm({ name: "", email: "", stars: 5, description: "" });
-  };
+  // const handleReviewSubmit = (e) => {
+  //     e.preventDefault();
+  //     console.log("Review submitted:", reviewForm);
+  //     setReviewForm({ name: "", email: "", stars: 5, description: "" });
+  // };
 
   const handleBulkReview = async (event) => {
     const file = event.target.files[0];
@@ -37,16 +33,78 @@ const AddReview = () => {
     reader.readAsArrayBuffer(file);
   };
 
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(location.state);
+      const response = await axios.post(
+        `http://localhost:5000/businesses/add/${location.state.Id}/review`,
+        {
+          Description: description,
+        }
+      );
+      setDescription(""); // Reset the form
+    } catch (error) {
+      console.log(error); // Error message
+    }
+  };
+
+  const submitBulkData = async () => {
+    try {
+      if (jsonData.length === 0) {
+        alert("Please upload an Excel file before submitting.");
+        return;
+      }
+      const response = await axios.post(
+        `http://localhost:5000/businesses/${location.state.Id}/reviews/bulk-upload`,
+        {
+          reviews: jsonData,
+        }
+      );
+      alert("Bulk reviews uploaded successfully!");
+      setJsonData([]); // Clear JSON data after successful upload
+    } catch (error) {
+      console.error("Error uploading bulk reviews:", error);
+      alert("Failed to upload bulk reviews. Please try again.");
+    }
+  };
+
+  // const handleBulkReview = async (event) => {
+  //     const file = event.target.files[0];
+  //     const reader = new FileReader();
+
+  //     reader.onload = (e) => {
+  //         const data = new Uint8Array(e.target.result);
+  //         const workbook = XLSX.read(data, { type: "array" });
+  //         const sheetName = workbook.SheetNames[0];
+  //         const worksheet = workbook.Sheets[sheetName];
+  //         const jsonData = XLSX.utils.sheet_to_json(worksheet);
+  //         console.log("Bulk review data:", jsonData);
+  //     };
+
+  //     reader.readAsArrayBuffer(file);
+  // };
   return (
     <div className="p-4 md:p-8">
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="mt-12 text-2xl font-bold">Reviews</h2>
+          <h2 className=" mt-12 text-2xl font-bold">Reviews</h2>
           <ArrowLeft
-            onClick={() => navigate(-1)} // Navigate back
-            className="text-black mt-14 hover:text-gray-800 cursor-pointer"
+            onClick={() => window.history.back()}
+            className="text-black mt-14  hover:text-gray-800 cursor-pointer"
             size={24} // Adjust size as needed
           />
+        </div>
+
+        <div>
+          <h3 className="text-lg font-bold mb-2">
+            Business Id:- {businessData?.BusinessId}
+          </h3>
+          <h3 className="text-lg font-bold mb-2">
+            Business Name:- {businessData?.Name}
+          </h3>
+          <p>Complete Review:- {completeCount.length}</p>
+          <p>Incomplete Review:- {incompleteCount.length}</p>
         </div>
 
         {editMode ? (

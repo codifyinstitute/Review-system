@@ -25,6 +25,7 @@ function Login() {
       if (response.ok) {
         const data = await response.json();
         // Handle successful login here (e.g., save token, update state)
+        localStorage.setItem("Role", "Admin")
         navigate("/dash/add")
       } else {
         const errorData = await response.json();

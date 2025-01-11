@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import Sidebar from './Sidebar'
 import { Outlet } from 'react-router-dom';
 
-const Layout = ({ children }) => {
-
+const Layout = () => {
+    useLayoutEffect(() => {
+        var role = localStorage.getItem("Role");
+        if (role !== "Admin") {
+            window.location.href = "/";
+        }
+    }, [])
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
@@ -48,7 +53,7 @@ const Layout = ({ children }) => {
                         )}
                     </button>
                     <div className="p-4 lg:p-8">
-                    <Outlet/>
+                        <Outlet />
                     </div>
                 </div>
             </div>

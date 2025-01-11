@@ -101,8 +101,7 @@ const businessController = {
     // Bulk upload reviews for a business
     bulkUploadReviews: async (req, res) => {
         const { BusinessId } = req.params; // The BusinessId of the business
-        const reviews = req.body; // Expecting an array of review objects
-
+        const { reviews } = req.body; // Expecting an array of review objects
         try {
             if (!Array.isArray(reviews) || reviews.length === 0) {
                 return res.status(400).json({ message: "Invalid data. Please provide an array of reviews." });

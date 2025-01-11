@@ -61,7 +61,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                   : "hover:bg-gray-700"
               }`}
             >
-              Edit Review
+              All Business
             </Link>
             <Link
               to="/"
