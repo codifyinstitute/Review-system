@@ -19,7 +19,7 @@ const AddReview = () => {
     const fetchBusinessData = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:5000/businesses/get/${location.state.Id}`
+                `https://review-backend-y75n.onrender.com/businesses/get/${location.state.Id}`
             );
             const unFilterData = response.data.Review.filter(
                 (value) => value.Status === "Incomplete"
@@ -64,7 +64,7 @@ const AddReview = () => {
         e.preventDefault();
         try {
             await axios.post(
-                `http://localhost:5000/businesses/add/${location.state.Id}/review`,
+                `https://review-backend-y75n.onrender.com/businesses/add/${location.state.Id}/review`,
                 { Description: description }
             );
             setDescription(""); // Reset the form
@@ -81,7 +81,7 @@ const AddReview = () => {
                 return;
             }
             await axios.post(
-                `http://localhost:5000/businesses/${location.state.Id}/reviews/bulk-upload`,
+                `https://review-backend-y75n.onrender.com/businesses/${location.state.Id}/reviews/bulk-upload`,
                 { reviews: jsonData }
             );
             alert("Bulk reviews uploaded successfully!");
@@ -105,7 +105,7 @@ const AddReview = () => {
         e.preventDefault(); // Prevent default form submission
         try {
             await axios.put(
-                `http://localhost:5000/businesses/put/${location.state.Id}`,
+                `https://review-backend-y75n.onrender.com/businesses/put/${location.state.Id}`,
                 { Name: editForm.name, Link: editForm.link }
             );
             setShowModal(false); // Close modal

@@ -16,7 +16,7 @@ function EditBusiness() {
   // Fetch all businesses from the API
   const fetchBusinesses = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/businesses/all");
+      const response = await axios.get("https://review-backend-y75n.onrender.com/businesses/all");
       setBusinesses(response.data);
       setFilteredBusinesses(response.data); // Initialize filtered list
     } catch (error) {
@@ -41,7 +41,7 @@ function EditBusiness() {
 
   const handleDelete = async (businessId) => {
     try {
-      await axios.delete(`http://localhost:5000/businesses/del/${businessId}`);
+      await axios.delete(`https://review-backend-y75n.onrender.com/businesses/del/${businessId}`);
       fetchBusinesses();
     } catch (error) {
       console.error("Error deleting business:", error);

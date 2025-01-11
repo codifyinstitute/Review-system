@@ -12,7 +12,7 @@ const RandomReview = () => {
     // Fetch business data
     const fetchBusinessData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/businesses/get/${businessId}`);
+            const response = await axios.get(`https://review-backend-y75n.onrender.com/businesses/get/${businessId}`);
             var filterData = response.data.Review.filter(value => value.Status === "Incomplete")
             setBusiness(filterData);
             setBusinessData(response.data);
@@ -27,7 +27,7 @@ const RandomReview = () => {
 
     const updateStatus = async () => {
         try {
-            const response = await axios.put(`http://localhost:5000/businesses/update-review-status/${businessId}/${randomReview.Description}`);
+            const response = await axios.put(`https://review-backend-y75n.onrender.com/businesses/update-review-status/${businessId}/${randomReview.Description}`);
             console.log(response.data);
             if (response.data.message == "Review status updated to Approved") {
                 window.location.assign(businessData.Link);

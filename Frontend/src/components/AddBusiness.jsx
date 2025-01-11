@@ -18,7 +18,7 @@ function AddBusiness() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/businesses/add",
+        "https://review-backend-y75n.onrender.com/businesses/add",
         {
           Name: formData.businessName,
           Link: formData.businessLink,
