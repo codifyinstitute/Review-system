@@ -17,10 +17,13 @@ function AddBusiness() {
     setSuccess(""); // Reset success message
 
     try {
-      const response = await axios.post("http://localhost:5000/businesses/add", {
-        Name: formData.businessName,
-        Link: formData.businessLink,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/businesses/add",
+        {
+          Name: formData.businessName,
+          Link: formData.businessLink,
+        }
+      );
       setSuccess("Business added successfully!"); // Success message
       setFormData({ businessName: "", businessLink: "" }); // Reset the form
     } catch (error) {
@@ -38,14 +41,18 @@ function AddBusiness() {
       <h2 className="mt-10 text-2xl font-bold text-center text-blue-600 mb-8">
         Add Business
       </h2>
-      
+
       {/* Display success or error messages */}
       {error && <div className="text-red-600 text-center mb-4">{error}</div>}
-      {success && <div className="text-green-600 text-center mb-4">{success}</div>}
+      {success && (
+        <div className="text-green-600 text-center mb-4">{success}</div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-xl text-gray-700 mb-2">Business Name</label>
+          <label className="block text-xl text-gray-700 mb-2">
+            Business Name
+          </label>
           <input
             type="text"
             value={formData.businessName}
@@ -57,7 +64,9 @@ function AddBusiness() {
           />
         </div>
         <div>
-          <label className="block text-xl text-gray-700 mb-2">Business Link</label>
+          <label className="block text-xl text-gray-700 mb-2">
+            Business Link
+          </label>
           <input
             type="url"
             value={formData.businessLink}
