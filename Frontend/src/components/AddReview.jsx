@@ -260,7 +260,7 @@ const AddReview = () => {
       setIncompleteCount(unFilterData);
       // console.log(unFilterData)
       setBusinessData(response.data);
-      // console.log(response.data.Review);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching business data", error);
     }
@@ -321,6 +321,7 @@ const AddReview = () => {
         }
       );
       alert("Bulk reviews uploaded successfully!");
+      fetchBusinessData()
       setJsonData([]); // Clear JSON data after successful upload
     } catch (error) {
       console.error("Error uploading bulk reviews:", error);
@@ -361,6 +362,9 @@ const AddReview = () => {
           </h3>
           <h3 className="text-lg font-bold mb-2">
             Business Name:- {businessData?.Name}
+          </h3>
+          <h3 className="text-lg font-bold mb-2">
+            Business Link:- {businessData?.Link}
           </h3>
           <p>Complete Review:- {completeCount.length}</p>
           <p>Incomplete Review:- {incompleteCount.length}</p>

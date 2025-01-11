@@ -1,83 +1,49 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function EditBusiness() {
   const navigate = useNavigate();
   const [businesses, setBusinesses] = useState([]);
+  const [filteredBusinesses, setFilteredBusinesses] = useState([]); // Filtered list
+  const [searchQuery, setSearchQuery] = useState(""); // Search query state
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editForm, setEditForm] = useState({ name: "", link: "" });
-  const [reviewForm, setReviewForm] = useState({
-    name: "",
-    email: "",
-    stars: 5,
-    description: "",
-  });
 
   // Fetch all businesses from the API
   const fetchBusinesses = async () => {
     try {
       const response = await axios.get("http://localhost:5000/businesses/all");
       setBusinesses(response.data);
+      setFilteredBusinesses(response.data); // Initialize filtered list
     } catch (error) {
       console.error("Error fetching businesses:", error);
     }
   };
-  useEffect(() => {
 
+  useEffect(() => {
     fetchBusinesses();
   }, []); // Empty dependency array ensures the effect runs only once
 
-  const handleEdit = (business) => {
-    setEditMode(true);
-    setEditForm({ name: business.name, link: business.link });
-    setSelectedBusiness(business);
+  // Handle search input changes
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    const filtered = businesses.filter((business) =>
+      business.Name.toLowerCase().includes(query)
+    );
+    setFilteredBusinesses(filtered);
   };
 
   const handleDelete = async (businessId) => {
     try {
-      await axios.delete(`http://localhost:5000/businesses/del/${businessId}`); // Add backend delete API endpoint
+      await axios.delete(`http://localhost:5000/businesses/del/${businessId}`);
       fetchBusinesses();
-
     } catch (error) {
       console.error("Error deleting business:", error);
     }
-  };
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    setBusinesses(
-      businesses.map((b) =>
-        b._id === selectedBusiness._id
-          ? { ...b, name: editForm.name, link: editForm.link }
-          : b
-      )
-    );
-    setEditMode(false);
-  };
-
-  const handleReviewSubmit = (e) => {
-    e.preventDefault();
-    console.log("Review submitted:", reviewForm);
-    setReviewForm({ name: "", email: "", stars: 5, description: "" });
-  };
-
-  const handleBulkReview = async (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      const data = new Uint8Array(e.target.result);
-      const workbook = XLSX.read(data, { type: "array" });
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json(worksheet);
-      console.log("Bulk review data:", jsonData);
-    };
-
-    reader.readAsArrayBuffer(file);
   };
 
   const copyToClipboard = (data) => {
@@ -92,21 +58,36 @@ function EditBusiness() {
       });
   };
 
-
   return (
     <div className="p-4 md:p-8">
       <div>
-        <h2 className=" mt-12 text-2xl font-bold mb-6">Edit Business</h2>
+        <h2 className="mt-12 text-2xl font-bold mb-6">Edit Business</h2>
+
+        {/* Search Filter */}
+        <div className="mb-4">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearch}
+            placeholder="Search Here"
+            className="w-full md:w-1/3 px-4 py-2 border rounded-lg shadow-sm"
+          />
+        </div>
+
+        {/* Business List */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {businesses?.map((business) => (
+          {filteredBusinesses?.map((business) => (
             <div
-              key={business._id} // Use _id for unique key in MongoDB
+              key={business._id}
               className="border rounded-lg p-4 shadow hover:shadow-lg transition-shadow cursor-pointer"
             >
-              <h3 className="text-xl font-semibold mb-2">{business.Name}</h3>
+              <div className="flex justify-between">
+                <h3 className="text-xl font-semibold mb-2">{business.Name}</h3>
+                <h3 className="text-xl font-semibold mb-2">{business.BusinessId}</h3>
+              </div>
               <div className="flex space-x-2">
                 <button
-                  onClick={(e) => navigate("/dash/add-review", { state: { Id: business.BusinessId } })}
+                  onClick={() => navigate("/dash/add-review", { state: { Id: business.BusinessId } })}
                   className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
                 >
                   Edit
@@ -114,7 +95,7 @@ function EditBusiness() {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleDelete(business.BusinessId); // Use _id for deleting business
+                    handleDelete(business.BusinessId);
                   }}
                   className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
                 >
@@ -122,7 +103,7 @@ function EditBusiness() {
                 </button>
                 <button
                   onClick={() => copyToClipboard(business.BusinessId)}
-                  className="bg-green-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                  className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
                 >
                   Copy Url
                 </button>
