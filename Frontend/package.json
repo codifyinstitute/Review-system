@@ -18,6 +18,7 @@
     "react-hot-toast": "^2.5.1",
     "react-router-dom": "^6.28.1",
     "react-toastify": "^11.0.2",
+    "rsuite": "^5.76.3",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

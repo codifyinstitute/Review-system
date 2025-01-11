@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useToaster,Message } from 'rsuite';
 
 function EditBusiness() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ function EditBusiness() {
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editForm, setEditForm] = useState({ name: "", link: "" });
+  const toaster = useToaster();
 
   // Fetch all businesses from the API
   const fetchBusinesses = async () => {
@@ -51,7 +53,8 @@ function EditBusiness() {
     navigator.clipboard
       .writeText(textToCopy)
       .then(() => {
-        console.log("Copied!");
+        alert("Copied!");
+        
       })
       .catch((err) => {
         console.error("Failed to copy text: ", err);

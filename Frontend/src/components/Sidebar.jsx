@@ -33,11 +33,7 @@ function Sidebar({ isOpen, setIsOpen }) {
       >
         <div className="p-4">
           <div className="flex justify-between mb-8 items-center">
-            <img
-              src={logo}
-              alt="LOGO"
-              className="w-12 aspect-square rounded-full"
-            />
+            
             <h1 className="text-xl font-bold">Review Manager</h1>
           </div>
           <nav className="space-y-2">
