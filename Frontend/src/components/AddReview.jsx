@@ -222,7 +222,7 @@
 // export default AddReview;
 
 import React, { useEffect, useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft,Edit2 } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import * as XLSX from "xlsx";
 import axios from "axios";
@@ -356,10 +356,10 @@ const AddReview = () => {
           />
         </div>
 
-        <div>
-          <h3 className="text-lg font-bold mb-2">
+        <div >
+          <div className="flex justify-between"><h3 className="text-lg font-bold mb-2">
             Business Id:- {businessData?.BusinessId}
-          </h3>
+          </h3><Edit2/></div>
           <h3 className="text-lg font-bold mb-2">
             Business Name:- {businessData?.Name}
           </h3>

@@ -50,23 +50,36 @@ const businessController = {
 
     // Update a business
     updateBusiness: async (req, res) => {
-        const { BusinessId } = req.params;
-        const { Name, Link } = req.body;
+        const { BusinessId } = req.params; // Extract BusinessId from request parameters
+        const { Name, Link } = req.body; // Extract Name and Link from the request body
+    
+        if (!Name && !Link) {
+            return res.status(400).json({ message: "At least one field (Name or Link) is required to update" });
+        }
+    
         try {
+            // Use findOneAndUpdate to find and update the business record
             const updatedBusiness = await Business.findOneAndUpdate(
-                { BusinessId },
-                { ...(Name && { Name }), ...(Link && { Link }) },
-                { new: true }
+                { BusinessId }, // Query by BusinessId
+                { ...(Name && { Name }), ...(Link && { Link }) }, // Update only if fields are provided
+                { new: true } // Return the updated document
             );
+    
             if (!updatedBusiness) {
                 return res.status(404).json({ message: "Business not found" });
             }
-            res.status(200).json({ message: "Business updated successfully", business: updatedBusiness });
+    
+            // Respond with the updated business
+            res.status(200).json({
+                message: "Business updated successfully",
+                business: updatedBusiness,
+            });
         } catch (error) {
+            console.error("Error updating business:", error);
             res.status(500).json({ message: "Error updating business", error });
         }
     },
-
+    
     // Delete a business
     deleteBusiness: async (req, res) => {
         const { BusinessId } = req.params;
