@@ -70,12 +70,30 @@ const RandomReview = () => {
     }
 
     return (
-        <div>
-            <h2>Random Review</h2>
-            <p><strong>Description:</strong> {randomReview.Description}</p>
-            <button onClick={() => copyToClipboard(randomReview.Description)}>Ok</button>
-            <button onClick={() => window.history.back()}>Cancel</button>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+            <div className="border border-gray-300 shadow-lg rounded-lg max-w-md w-full p-6 bg-white">
+                <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">Random Review</h2>
+                <p className="text-gray-700 mb-6 text-center">
+                    <strong className="text-gray-900">Description:</strong> {randomReview.Description}
+                </p>
+                <div className="flex justify-evenly">
+                    <button
+                        onClick={() => copyToClipboard(randomReview.Description)}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                    >
+                        Copy
+                    </button>
+                    <button
+                        onClick={() => window.history.back()}
+                        className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:ring-2 focus:ring-gray-300 focus:outline-none"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
         </div>
+
+
     );
 };
 

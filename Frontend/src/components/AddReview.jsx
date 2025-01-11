@@ -293,21 +293,20 @@ const AddReview = () => {
     reader.readAsArrayBuffer(file);
   };
 
-  const handleReviewSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      console.log(location.state);
-      const response = await axios.post(
-        `http://localhost:5000/businesses/add/${location.state.Id}/review`,
-        {
-          Description: description,
+    const handleReviewSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            console.log(location.state)
+            const response = await axios.post(`http://localhost:5000/businesses/add/${location.state.Id}/review`, {
+                Description: description,
+            });
+            setDescription(""); // Reset the form
+            fetchBusinessData()
+        } catch (error) {
+            console.log(error); // Error message
         }
-      );
-      setDescription(""); // Reset the form
-    } catch (error) {
-      console.log(error); // Error message
-    }
-  };
+
+    };
 
   const submitBulkData = async () => {
     try {
