@@ -42,7 +42,7 @@ function Sidebar({ isOpen, setIsOpen }) {
           </div>
           <nav className="space-y-2">
             <Link
-              to="/add"
+              to="/dash/add"
               onClick={closeSidebar}
               className={`block p-3 rounded ${
                 location.pathname === "/add"
@@ -53,7 +53,7 @@ function Sidebar({ isOpen, setIsOpen }) {
               Add Business Review
             </Link>
             <Link
-              to="/edit"
+              to="/dash/edit"
               onClick={closeSidebar}
               className={`block p-3 rounded ${
                 location.pathname === "/edit"
@@ -61,10 +61,10 @@ function Sidebar({ isOpen, setIsOpen }) {
                   : "hover:bg-gray-700"
               }`}
             >
-              Edit Review
+              All Business
             </Link>
             <Link
-              to="/login"
+              to="/"
               onClick={closeSidebar}
               className={`block p-3 rounded ${
                 location.pathname === "/login"
@@ -72,18 +72,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                   : "hover:bg-gray-700"
               }`}
             >
-              Register
-            </Link>
-            <Link
-              to="/Register"
-              onClick={closeSidebar}
-              className={`block p-3 rounded ${
-                location.pathname === "/Register"
-                  ? "bg-blue-600"
-                  : "hover:bg-gray-700"
-              }`}
-            >
-              Register
+              Logout
             </Link>
           </nav>
         </div>
